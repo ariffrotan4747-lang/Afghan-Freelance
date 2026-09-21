@@ -1,0 +1,29 @@
+{
+  "id": "/",
+  "name": "افغان فریلنس | Afghan Freelance",
+  "short_name": "افغان‌فریلنس",
+  "description": "بازار آنلاین بین‌المللی برای متخصصان و فریلنسرهای افغانستان - استعداد افغانستان، فرصت‌های جهان",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "dir": "rtl",
+  "lang": "fa",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"]
+}
