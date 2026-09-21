@@ -1,0 +1,141 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents an authenticated user account in Afghan Freelance",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "name": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "enum": ["client", "freelancer", "admin", "super_admin"] },
+        "createdAt": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "isSuspended": { "type": "boolean" }
+      },
+      "required": ["uid", "email", "name", "role", "createdAt"]
+    },
+    "Profile": {
+      "title": "Profile",
+      "description": "Freelancer or Client public profile details",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "username": { "type": "string", "maxLength": 50 },
+        "headline": { "type": "string", "maxLength": 150 },
+        "bio": { "type": "string", "maxLength": 2000 },
+        "avatarUrl": { "type": "string" },
+        "country": { "type": "string" },
+        "city": { "type": "string" },
+        "skills": { "type": "string" },
+        "languages": { "type": "string" },
+        "rating": { "type": "number" },
+        "completedOrders": { "type": "number" },
+        "badges": { "type": "string" }
+      },
+      "required": ["userId", "username", "headline"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "Freelancer marketplace service offering (Gig)",
+      "type": "object",
+      "properties": {
+        "freelancerId": { "type": "string" },
+        "title": { "type": "string", "maxLength": 200 },
+        "categoryId": { "type": "string" },
+        "description": { "type": "string", "maxLength": 5000 },
+        "coverImage": { "type": "string" },
+        "deliveryDays": { "type": "number" },
+        "priceAFN": { "type": "number" },
+        "priceUSD": { "type": "number" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["freelancerId", "title", "categoryId", "priceAFN", "priceUSD"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Commercial contract / order between client and freelancer",
+      "type": "object",
+      "properties": {
+        "orderNumber": { "type": "string" },
+        "clientId": { "type": "string" },
+        "freelancerId": { "type": "string" },
+        "serviceId": { "type": "string" },
+        "serviceTitle": { "type": "string" },
+        "packageType": { "type": "string", "enum": ["basic", "standard", "premium"] },
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["AFN", "USD"] },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "awaiting_payment", "paid", "in_progress", "delivered", "revision_requested", "completed", "cancelled", "disputed"]
+        },
+        "hesabPaySessionId": { "type": "string" },
+        "platformCommission": { "type": "number" },
+        "freelancerEarning": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["orderNumber", "clientId", "freelancerId", "amount", "currency", "status"]
+    },
+    "Wallet": {
+      "title": "Wallet",
+      "description": "User wallet ledger storing balance and escrow",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "balanceAFN": { "type": "number" },
+        "balanceUSD": { "type": "number" },
+        "pendingEscrowAFN": { "type": "number" },
+        "pendingEscrowUSD": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "balanceAFN", "balanceUSD"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial ledger record for payments, withdrawals, and earnings",
+      "type": "object",
+      "properties": {
+        "transactionId": { "type": "string" },
+        "userId": { "type": "string" },
+        "orderId": { "type": "string" },
+        "type": { "type": "string", "enum": ["deposit", "payment", "refund", "withdrawal", "freelancer_earnings", "platform_fee"] },
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "enum": ["AFN", "USD"] },
+        "status": { "type": "string", "enum": ["pending", "completed", "failed", "cancelled"] },
+        "paymentMethod": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["transactionId", "userId", "type", "amount", "currency", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User account documents"
+    },
+    "/profiles/{userId}": {
+      "schema": "Profile",
+      "description": "Public freelancer/client profile documents"
+    },
+    "/services/{serviceId}": {
+      "schema": "Service",
+      "description": "Marketplace services created by freelancers"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer orders and commercial contracts"
+    },
+    "/wallets/{userId}": {
+      "schema": "Wallet",
+      "description": "User balance and pending escrow"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Financial transaction ledger"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "افغان فریلنس | Afghan Freelance",
+  "description": "بازار آنلاین بین‌المللی برای متخصصان و فریلنسرهای افغانستان - استعداد افغانستان، فرصت‌های جهان",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
